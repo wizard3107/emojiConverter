@@ -1,15 +1,13 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Posts from './components/Posts';
-import Input from './components/Input';
-import styles from './components/css/input.module.css'
+import Router from './components/Router';
+import Navbar from './components/Navbar';
+
 function App() {
   return (
     <div className="App">
-     <div className={styles.mainContainer}>
-      <Input/>
-      <Posts/>
-     </div>
+      <Navbar/>
+      <Router/>
     </div>
   );
 }

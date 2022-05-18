@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styles from './css/input.module.css'
 const Posts = () => {
     const [posts,setPosts]=React.useState([]);
     React.useEffect(()=>{
@@ -9,10 +9,10 @@ const Posts = () => {
         .catch(err=>console.log(err))
     },[])
   return (
-    <div>
+    <div className={styles.post}>
       {
           posts.map(ele=>{
-              return <div>{ele.post}</div>
+              return <div >{ele.post}</div>
           })
       }
     </div>

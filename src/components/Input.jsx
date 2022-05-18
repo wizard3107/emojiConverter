@@ -2,6 +2,7 @@ import React from 'react'
 import styles from'./css/input.module.css'
 const Input = () => {
     const [text,setText] = React.useState("")
+    const [convertedText, setConvertedText] = React.useState("")
     const [emoji ,setEmoji] =React.useState([])
     React.useEffect(() => {
         fetch("https://emojiconverter.herokuapp.com/emoji")
@@ -15,6 +16,7 @@ const Input = () => {
     }
     const handleChange =(e)=>{
         setText(e.currentTarget.value)
+        setConvertedText(e.currentTarget.value)
         console.log(text)
         console.log("emoji: ",emoji)
         let ip  = text.split(" ")
@@ -22,7 +24,7 @@ const Input = () => {
             for (let j = 0; j < emoji.length; j++) {
                 if (ip[i] === emoji[j].name) {
                     ip[i] = emoji[j].emoji;
-                    setText(ip.join(" "))
+                    setConvertedText(ip.join(" "))
                 }
             }
         }
@@ -32,8 +34,12 @@ const Input = () => {
     
     const handleSubmit = (e)=>{
         e.preventDefault();
+        if(convertedText==="")
+        {
+            return alert("Can not submit empty text!!")
+        }
         let obj = {
-            "post":  text 
+            "post":  convertedText 
         }
         fetch("https://emojiconverter.herokuapp.com/post",{
             method:"POST",
@@ -48,6 +54,9 @@ const Input = () => {
                     .catch(err => console.log(err))
 })
             .catch(err => console.log(err))
+
+        setConvertedText("")
+        setText("")
     }
     return (
     <div>
@@ -55,6 +64,7 @@ const Input = () => {
             <input type="text" className={styles.input} value={text} placeholder="Add Text" onChange={e=>handleChange(e)}/>
             <input type="submit" value="Submit"  className={styles.submit}/>
         </form>
+            <textarea placeholder='Converted Text' value={convertedText} className={styles.textarea}></textarea>
     </div>
   )
 }
