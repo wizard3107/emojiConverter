@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styles from'./css/input.module.css'
 const Input = () => {
     const [text,setText] = React.useState("")
     const [emoji ,setEmoji] =React.useState([])
@@ -52,8 +52,8 @@ const Input = () => {
     return (
     <div>
         <form onSubmit={handleSubmit} >
-            <input type="text" value={text} placeholder="Add Text" onChange={e=>handleChange(e)}/>
-            <input type="submit" value="Submit" />
+            <input type="text" className={styles.input} value={text} placeholder="Add Text" onChange={e=>handleChange(e)}/>
+            <input type="submit" value="Submit"  className={styles.submit}/>
         </form>
     </div>
   )
