@@ -12,7 +12,7 @@ const Posts = () => {
     <div className={styles.post}>
       {
           posts.map(ele=>{
-              return <div >{ele.post}</div>
+              return <div key={ele._id}>{ele.post}</div>
           })
       }
     </div>
