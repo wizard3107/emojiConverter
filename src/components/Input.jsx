@@ -14,12 +14,18 @@ const Input = () => {
     const setValue=(e,ip)=>{
         setText();
     }
-    const handleChange =(e)=>{
-        setText(e.currentTarget.value)
-        setConvertedText(e.currentTarget.value)
-        console.log(text)
-        console.log("emoji: ",emoji)
-        let ip  = text.split(" ")
+    const checkingSubmit = (ip) => {
+        for (let i = 0; i < ip.length; i++) {
+            for (let j = 0; j < emoji.length; j++) {
+                if (ip[i] === emoji[j].name) {
+                    ip[i] = emoji[j].emoji;
+                    //setConvertedText(ip.join(" "))
+                }
+            }
+        }
+        return ip.join(" ");
+    }
+    const checking=(ip)=>{
         for (let i = 0; i < ip.length; i++) {
             for (let j = 0; j < emoji.length; j++) {
                 if (ip[i] === emoji[j].name) {
@@ -28,6 +34,14 @@ const Input = () => {
                 }
             }
         }
+    }
+    const handleChange =(e)=>{
+        setText(e.currentTarget.value)
+        setConvertedText(e.currentTarget.value)
+        console.log(text)
+        console.log("emoji: ",emoji)
+        let ip  = text.split(" ")
+        checking(ip)
         console.log(ip)
 
     }
@@ -38,8 +52,9 @@ const Input = () => {
         {
             return alert("Can not submit empty text!!")
         }
+        let dat = checkingSubmit(text.split(" "));
         let obj = {
-            "post":  convertedText 
+            "post":  dat
         }
         fetch("https://emojiconverter.herokuapp.com/post",{
             method:"POST",
